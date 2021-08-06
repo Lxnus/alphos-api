@@ -15,8 +15,8 @@ import java.util.function.Consumer;
 @Singleton
 public class DefaultAlphosApiClient implements AlphosApiClient {
 
-  private final String host = "127.0.0.1";//"service.alphos.dev";
-  private final int port = 80;//222;
+  private final String host = "service.alphos.dev";
+  private final int port = 222;
 
   private AsynchronousSocketChannel client;
 
