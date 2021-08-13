@@ -1,0 +1,29 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package net.alphos.service.grpc;
+
+message DictRequest {
+  string token = 1;
+}
+
+message ReverseDictRequest {
+  double value = 1;
+  bool exist = 2;
+}
+
+message DictResponse {
+  double value = 1;
+}
+
+message ReverseDictResponse {
+  string token = 1;
+  bool exist = 2;
+}
+
+service DictionaryService {
+  rpc hasValue(DictRequest) returns (DictResponse);
+  rpc getValue(DictRequest) returns (DictResponse);
+
+  rpc hasToken(ReverseDictRequest) returns (ReverseDictResponse);
+  rpc getToken(ReverseDictRequest) returns (ReverseDictResponse);
+}
