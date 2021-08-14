@@ -15,7 +15,9 @@ public class DefaultGrpcClient implements GrpcClient {
 
   private ManagedChannel channel;
 
-  public DefaultGrpcClient() {}
+  public DefaultGrpcClient() {
+    start("service.alphos.dev", 222);
+  }
 
   @Override
   public void start(String host, int port) {

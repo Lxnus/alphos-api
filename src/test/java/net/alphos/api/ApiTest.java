@@ -2,7 +2,6 @@ package net.alphos.api;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import net.alphos.api.main.grpc.GrpcClient;
 import net.alphos.api.main.grpc.services.DictionaryService;
 import net.alphos.api.main.grpc.services.LinearClassifierService;
 
@@ -39,8 +38,6 @@ public class ApiTest {
 
   public static void main(String[] args) {
     Injector injector = Guice.createInjector();
-    GrpcClient client = injector.getInstance(GrpcClient.class);
-    client.start("service.alphos.dev", 222);
     injector.getInstance(ApiTest.class);
   }
 }
