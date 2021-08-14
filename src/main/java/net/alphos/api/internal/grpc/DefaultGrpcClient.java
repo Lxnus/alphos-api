@@ -1,31 +1,29 @@
 package net.alphos.api.internal.grpc;
 
-import com.google.inject.assistedinject.Assisted;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
 import net.alphos.api.main.grpc.GrpcClient;
-import net.alphos.service.grpc.*;
 
-import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.net.ssl.SSLException;
 import java.io.File;
 
+@Singleton
 public class DefaultGrpcClient implements GrpcClient {
 
   private ManagedChannel channel;
-  private DictionaryServiceGrpc.DictionaryServiceBlockingStub blockingStub;
 
-  @Inject
-  public DefaultGrpcClient(@Assisted("host") String host,
-                           @Assisted("port") int port) {
+  public DefaultGrpcClient() {}
+
+  @Override
+  public void start(String host, int port) {
     try {
       SslContext sslContext = loadSSLCredentials();
       channel = NettyChannelBuilder.forAddress(host, port)
               .sslContext(sslContext)
               .build();
-      blockingStub = DictionaryServiceGrpc.newBlockingStub(channel);
     } catch (SSLException e) {
       e.printStackTrace();
     }
@@ -33,22 +31,21 @@ public class DefaultGrpcClient implements GrpcClient {
 
   private SslContext loadSSLCredentials() throws SSLException {
     File serverCACertFile = new File("properties/ca-cert.pem");
+    File clientCertFile = new File("properties/client-cert.pem");
+    File clientKeyFile = new File("properties/client-key.pem");
     return GrpcSslContexts.forClient()
+            .keyManager(clientCertFile, clientKeyFile)
             .trustManager(serverCACertFile)
             .build();
   }
 
   @Override
-  public void hasToken(int value) {
-    ReverseDictRequest request = ReverseDictRequest.newBuilder()
-            .setValue(value)
-            .build();
-    ReverseDictResponse response = blockingStub.hasToken(request);
-    System.out.println(response);
+  public ManagedChannel channel() {
+    return channel;
   }
 
   @Override
-  public void shutdown() {
+  public void stop() {
     if(channel != null) {
       channel.shutdownNow();
     }

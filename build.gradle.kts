@@ -23,7 +23,7 @@ sourceSets {
 }
 
 group = "net.alphos.api"
-version = "1.0-SNAPSHOT"
+version = "1.2"
 
 repositories {
     mavenCentral()
@@ -38,9 +38,10 @@ dependencies {
     implementation("com.google.inject.extensions", "guice-assistedinject", "4.2.1")
     implementation("com.google.protobuf", "protobuf-java", "4.0.0-rc-2")
 
-    implementation("io.grpc", "grpc-netty", "1.16.1")
-    implementation("io.grpc", "grpc-protobuf", "1.16.1")
-    implementation("io.grpc", "grpc-stub", "1.16.1")
+    implementation("io.grpc", "grpc-all", "1.26.0")
+    implementation("io.grpc", "grpc-services", "1.28.0")
+
+    implementation("io.netty", "netty-tcnative-boringssl-static", "2.0.26.Final")
 
     implementation("javax.annotation", "javax.annotation-api", "1.2-b01")
 }
@@ -51,7 +52,7 @@ protobuf {
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.20.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.26.0"
         }
     }
     generateProtoTasks {

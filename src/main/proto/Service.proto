@@ -7,12 +7,12 @@ message DictRequest {
 }
 
 message ReverseDictRequest {
-  double value = 1;
-  bool exist = 2;
+  int32 value = 1;
 }
 
 message DictResponse {
-  double value = 1;
+  int32 value = 1;
+  bool exist = 2;
 }
 
 message ReverseDictResponse {
@@ -21,9 +21,74 @@ message ReverseDictResponse {
 }
 
 service DictionaryService {
-  rpc hasValue(DictRequest) returns (DictResponse);
   rpc getValue(DictRequest) returns (DictResponse);
 
-  rpc hasToken(ReverseDictRequest) returns (ReverseDictResponse);
   rpc getToken(ReverseDictRequest) returns (ReverseDictResponse);
+}
+
+// Frequency Map
+message FrequencyMapRequest {
+  string message = 1;
+}
+
+message FrequencyMapResponse {
+  map<string, double> frequencyMap = 1;
+}
+
+service NlpUtilService {
+  rpc getFrequencyMap(FrequencyMapRequest) returns (FrequencyMapResponse);
+}
+
+// Linear Classifier
+message SetupLCRequest {
+  uint64 classifierId = 1;
+  repeated double x = 2 [packed=true];
+  repeated double y = 3 [packed=true];
+}
+
+message DeleteLCRequest {
+  uint64 classifierId = 1;
+}
+
+message ErrorLCRequest {
+  uint64 classifierId = 1;
+}
+
+message PredictLCRequest {
+  uint64 classifierId = 1;
+  double value = 2;
+}
+
+message SetupLCResponse {
+  uint64 classifierId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message DeleteLCResponse {
+  uint64 classifierId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message ErrorLCResponse {
+  uint64 classifierId = 1;
+  double error = 2;
+  string message = 3;
+  bool success = 4;
+}
+
+message PredictLCResponse {
+  uint64 classifierId = 1;
+  double value = 2;
+  double prediction = 3;
+  string message = 4;
+  bool success = 5;
+}
+
+service LinearClassifierService {
+  rpc setupLinearClassifier(SetupLCRequest) returns (SetupLCResponse);
+  rpc deleteLinearClassifier(DeleteLCRequest) returns (DeleteLCResponse);
+  rpc errorLinearClassifier(ErrorLCRequest) returns (ErrorLCResponse);
+  rpc predictLinearClassifier(PredictLCRequest) returns (PredictLCResponse);
 }
