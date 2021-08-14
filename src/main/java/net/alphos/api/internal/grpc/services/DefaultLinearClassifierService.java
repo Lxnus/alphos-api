@@ -19,7 +19,7 @@ public class DefaultLinearClassifierService implements LinearClassifierService {
 
   @Inject
   public DefaultLinearClassifierService(GrpcClient client) {
-    client.start("127.0.0.1", 222);
+    client.start("service.alphos.dev", 222);
     this.blockingStub = LinearClassifierServiceGrpc.newBlockingStub(client.channel());
   }
 
