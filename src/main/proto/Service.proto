@@ -2,28 +2,62 @@ syntax = "proto3";
 option java_multiple_files = true;
 package net.alphos.service.grpc;
 
-message DictRequest {
-  string token = 1;
+message SetupDictionaryRequest {
+  uint64 dictionaryId = 1;
 }
 
-message ReverseDictRequest {
-  int32 value = 1;
+message DeleteDictionaryRequest {
+  uint64 dictionaryId = 1;
 }
 
-message DictResponse {
-  int32 value = 1;
-  bool exist = 2;
+message AddDictionaryEntryRequest {
+  uint64 dictionaryId = 1;
+  string token = 2;
+  uint32 value = 3;
 }
 
-message ReverseDictResponse {
-  string token = 1;
-  bool exist = 2;
+message GetDictionaryValueRequest {
+  uint64 dictionaryId = 1;
+  string token = 2;
+}
+
+message GetDictionaryTokenRequest {
+  uint64 dictionaryId = 1;
+  uint32 value = 2;
+}
+
+message SetupDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message DeleteDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message AddDictionaryEntryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message GetDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string token = 2;
+  uint32 value = 3;
+  string message = 4;
+  bool success = 5;
 }
 
 service DictionaryService {
-  rpc getValue(DictRequest) returns (DictResponse);
-
-  rpc getToken(ReverseDictRequest) returns (ReverseDictResponse);
+  rpc setupDictionary(SetupDictionaryRequest) returns (SetupDictionaryResponse);
+  rpc deleteDictionary(DeleteDictionaryRequest) returns (DeleteDictionaryResponse);
+  rpc addDictionaryEntry(AddDictionaryEntryRequest) returns (AddDictionaryEntryResponse);
+  rpc getDictionaryValue(GetDictionaryValueRequest) returns (GetDictionaryResponse);
+  rpc getDictionaryToken(GetDictionaryTokenRequest) returns (GetDictionaryResponse);
 }
 
 // Frequency Map
@@ -35,15 +69,25 @@ message FrequencyMapResponse {
   map<string, double> frequencyMap = 1;
 }
 
+// Tokenizer
+message TokenizeRequest {
+  string message = 1;
+}
+
+message TokenizeResponse {
+  repeated string tokens = 1;
+}
+
 service NlpUtilService {
+  rpc tokenize(TokenizeRequest) returns (TokenizeResponse);
   rpc getFrequencyMap(FrequencyMapRequest) returns (FrequencyMapResponse);
 }
 
 // Linear Classifier
 message SetupLCRequest {
   uint64 classifierId = 1;
-  repeated double x = 2 [packed=true];
-  repeated double y = 3 [packed=true];
+  repeated double x = 2;
+  repeated double y = 3;
 }
 
 message DeleteLCRequest {

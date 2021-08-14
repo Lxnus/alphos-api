@@ -19,7 +19,6 @@ public class DefaultLinearClassifierService implements LinearClassifierService {
 
   @Inject
   public DefaultLinearClassifierService(GrpcClient client) {
-    client.start("service.alphos.dev", 222);
     this.blockingStub = LinearClassifierServiceGrpc.newBlockingStub(client.channel());
   }
 
@@ -61,7 +60,6 @@ public class DefaultLinearClassifierService implements LinearClassifierService {
       logger.log(Level.SEVERE, response.getMessage());
       return Double.NaN;
     }
-    logger.info("Request finished. Status: " + response.getMessage());
     return response.getError();
   }
 
@@ -83,7 +81,6 @@ public class DefaultLinearClassifierService implements LinearClassifierService {
       logger.log(Level.SEVERE, response.getMessage());
       return Double.NaN;
     }
-    logger.info("Request finished. Status: " + response.getMessage());
     return response.getPrediction();
   }
 

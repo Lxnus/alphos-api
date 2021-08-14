@@ -1,8 +1,18 @@
 package net.alphos.api.main.grpc.services;
 
+import com.google.inject.ImplementedBy;
+import net.alphos.api.internal.grpc.services.DefaultDictionaryService;
+
+@ImplementedBy(DefaultDictionaryService.class)
 public interface DictionaryService {
 
-  int getValue(String token);
+  void create(long dictionaryId);
 
-  String getToken(int value);
+  void delete(long dictionaryId);
+
+  void addEntry(String token, int value, long dictionaryId);
+
+  Integer getValue(String token, long dictionaryId);
+
+  String getToken(int value, long dictionary);
 }
