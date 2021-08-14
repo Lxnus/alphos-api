@@ -1,5 +1,5 @@
 #Official Alphos-Service API
-#####A modern remote framework for building artificial intelligence services.
+#####A modern framework for building remote artificial intelligence services.
 
 ---
 
