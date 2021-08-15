@@ -1,9 +1,9 @@
-package net.alphos.api;
+package dev.alphos.api;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import net.alphos.api.main.grpc.services.DictionaryService;
-import net.alphos.api.main.grpc.services.LinearClassifierService;
+import dev.alphos.api.main.grpc.services.DictionaryService;
+import dev.alphos.api.main.grpc.services.LinearClassifierService;
 
 import javax.inject.Inject;
 import java.util.Arrays;

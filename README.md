@@ -20,7 +20,7 @@ We also would love to chat with you on our [Discord Server](https://discord.gg/Y
 ## Motivation
 Today there are many frameworks that are able to present very well performing A.I. algorithms like
 PyTorch, Tensorflow & Dl4j. The Problem is that all computations are performed on the 
-client's computer. This may cost you hours to train a model or setup a model.
+client's computer. This may cost you hours to train a model or set up a model.
 
 Our system is designed to build much easier advanced and complex models, that are computed remotely. We also provide algorithms
 that are specially designed to compute problem with new algorithms. With it you can optimize your services.
@@ -79,7 +79,7 @@ public class ApiTest {
 ```
 
 ## Architecture
-For advanced security we use mutual SSL/TLS encryption to guarantee high security 
+For advanced security we use SSL/TLS encryption to guarantee high security 
 standards for our clients.
 
 To access tools of the API you won't call static method but instead use constructor injection to retrieve
@@ -87,8 +87,8 @@ the instance you need. An instance of the class will be constructed automaticall
 For further explanation, see the [Guice documentation](https://github.com/google/guice/wiki).
 
 ## Coming soon
-Until now, the main focus was on the main-alphos-system. Know we are 
-able to implement all our existing services into our api.
+Until now, the main focus was on the main-alphos-system. Currently, we are 
+working on implementing all our existing services into our api.
 We are strongly working on automatically and advanced natural language analysis.
 Another goal is to implement more algorithms used in the field of 
 artificial general intelligence to integrate advanced AGI algorithms into commercial usage.

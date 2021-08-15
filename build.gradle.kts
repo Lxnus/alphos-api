@@ -22,7 +22,7 @@ sourceSets {
     }
 }
 
-group = "net.alphos.api"
+group = "dev.alphos.api"
 version = "1.2"
 
 repositories {

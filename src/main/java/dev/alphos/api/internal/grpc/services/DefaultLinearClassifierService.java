@@ -1,7 +1,7 @@
-package net.alphos.api.internal.grpc.services;
+package dev.alphos.api.internal.grpc.services;
 
-import net.alphos.api.main.grpc.GrpcClient;
-import net.alphos.api.main.grpc.services.LinearClassifierService;
+import dev.alphos.api.main.grpc.client.GrpcClient;
+import dev.alphos.api.main.grpc.services.LinearClassifierService;
 import net.alphos.service.grpc.*;
 
 import javax.inject.Inject;

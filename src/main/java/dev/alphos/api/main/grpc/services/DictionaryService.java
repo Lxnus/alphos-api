@@ -1,7 +1,7 @@
-package net.alphos.api.main.grpc.services;
+package dev.alphos.api.main.grpc.services;
 
 import com.google.inject.ImplementedBy;
-import net.alphos.api.internal.grpc.services.DefaultDictionaryService;
+import dev.alphos.api.internal.grpc.services.DefaultDictionaryService;
 
 @ImplementedBy(DefaultDictionaryService.class)
 public interface DictionaryService {

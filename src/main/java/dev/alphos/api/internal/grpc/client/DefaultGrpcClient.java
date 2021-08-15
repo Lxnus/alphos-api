@@ -1,10 +1,10 @@
-package net.alphos.api.internal.grpc;
+package dev.alphos.api.internal.grpc.client;
 
 import io.grpc.ManagedChannel;
 import io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.NettyChannelBuilder;
 import io.netty.handler.ssl.SslContext;
-import net.alphos.api.main.grpc.GrpcClient;
+import dev.alphos.api.main.grpc.client.GrpcClient;
 
 import javax.inject.Singleton;
 import javax.net.ssl.SSLException;
@@ -32,11 +32,9 @@ public class DefaultGrpcClient implements GrpcClient {
   }
 
   private SslContext loadSSLCredentials() throws SSLException {
-    File serverCACertFile = new File("properties/ca-cert.pem");
-    File clientCertFile = new File("properties/client-cert.pem");
-    File clientKeyFile = new File("properties/client-key.pem");
+    ClassLoader classLoader = getClass().getClassLoader();
+    File serverCACertFile = new File(classLoader.getResource("ca-cert.pem").getFile());
     return GrpcSslContexts.forClient()
-            .keyManager(clientCertFile, clientKeyFile)
             .trustManager(serverCACertFile)
             .build();
   }
