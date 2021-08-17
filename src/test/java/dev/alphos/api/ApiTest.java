@@ -3,6 +3,7 @@ package dev.alphos.api;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import dev.alphos.api.main.grpc.services.DictionaryService;
+import dev.alphos.api.main.grpc.services.KnowledgeGraphService;
 import dev.alphos.api.main.grpc.services.LinearClassifierService;
 
 import javax.inject.Inject;
@@ -13,7 +14,8 @@ public class ApiTest {
 
   @Inject
   public ApiTest(LinearClassifierService classifier,
-                 DictionaryService dictionaryService) {
+                 DictionaryService dictionaryService,
+                 KnowledgeGraphService knowledgeGraphService) {
     long classifierId = 1;
 
     List<Double> x = Arrays.asList(1.5, 1.4, 1.3, 1.25, 1.19);
@@ -34,6 +36,26 @@ public class ApiTest {
     dictionaryService.delete(dictionaryId);
 
     System.out.printf("Dictionary: token=%s, value=%s \n", token, value);
+
+    long graphId = 3;
+    String sentence1 = "Hello, my name is Linus!";
+    String sentence2 = "Linus likes computers!";
+    String sentence3 = "He is working as research scientist.";
+    String sentence4 = "Linus computer saves the alphos-project";
+    String sentence5 = "Linus research project is alphos";
+    List<String> sentences = Arrays.asList(
+            sentence1,
+            sentence2,
+            sentence3,
+            sentence4,
+            sentence5);
+    knowledgeGraphService.create(graphId);
+    knowledgeGraphService.adapt(sentences, graphId);
+    String predict = knowledgeGraphService.predict("Linus", graphId);
+    List<String> history = knowledgeGraphService.history("alphos-project", graphId);
+    knowledgeGraphService.delete(graphId);
+    System.out.println("KnowledgeGraph-Prediction: Linus -> " + predict);
+    System.out.println("KnowledgeGraph-History: " + history);
   }
 
   public static void main(String[] args) {

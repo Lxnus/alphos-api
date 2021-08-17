@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package net.alphos.api.grpc.services.classifier;
+package net.alphos.service.grpc.services.classifier;
 
 message SetupLCRequest {
   uint64 classifierId = 1;

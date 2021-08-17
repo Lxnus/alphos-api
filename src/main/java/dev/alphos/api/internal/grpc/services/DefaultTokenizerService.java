@@ -2,9 +2,9 @@ package dev.alphos.api.internal.grpc.services;
 
 import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.TokenizerService;
-import net.alphos.api.grpc.services.nlp.TokenizeRequest;
-import net.alphos.api.grpc.services.nlp.TokenizeResponse;
-import net.alphos.api.grpc.services.nlp.TokenizerServiceGrpc;
+import net.alphos.service.grpc.services.nlp.TokenizeRequest;
+import net.alphos.service.grpc.services.nlp.TokenizeResponse;
+import net.alphos.service.grpc.services.nlp.TokenizerServiceGrpc;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -2,7 +2,7 @@ package dev.alphos.api.internal.grpc.services;
 
 import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.KnowledgeGraphService;
-import net.alphos.api.grpc.services.experiment.*;
+import net.alphos.service.grpc.services.experiment.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

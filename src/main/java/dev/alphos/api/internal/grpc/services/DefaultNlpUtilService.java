@@ -2,9 +2,9 @@ package dev.alphos.api.internal.grpc.services;
 
 import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.NlpUtilService;
-import net.alphos.api.grpc.services.nlp.FrequencyMapRequest;
-import net.alphos.api.grpc.services.nlp.FrequencyMapResponse;
-import net.alphos.api.grpc.services.nlp.NlpUtilServiceGrpc;
+import net.alphos.service.grpc.services.nlp.FrequencyMapRequest;
+import net.alphos.service.grpc.services.nlp.FrequencyMapResponse;
+import net.alphos.service.grpc.services.nlp.NlpUtilServiceGrpc;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package net.alphos.api.grpc.services.experiment;
+package net.alphos.service.grpc.services.experiment;
 
 message SetupKnowledgeGraphRequest {
   uint64 graphId = 1;
