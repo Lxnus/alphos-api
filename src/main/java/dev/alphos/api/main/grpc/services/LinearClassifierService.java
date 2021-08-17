@@ -42,7 +42,7 @@ public interface LinearClassifierService {
    * If we don't want to save our classifier data anymore we can delete it with its identification id.
    * This id is used to identify the classifier in the main-alphos-system.
    * With this method call we delete the classifier from the system and all data are deleted.
-   * If we want to use this classifier again we need to setup an new one. (This may take time -> Reuse the classifier)
+   * If we want to use this classifier again we need to setup an new one. (This may take time -&gt; Reuse the classifier)
    * @param classifierId identification id
    */
   void delete(long classifierId);

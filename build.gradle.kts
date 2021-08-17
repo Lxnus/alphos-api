@@ -27,6 +27,10 @@ sourceSets {
 group = "dev.alphos"
 version = "1.2"
 
+fun getSigningProperty(name: String): String? = System.getenv("SIGNING_$name")
+fun getAuthenticationProperty(name: String, envName: String): String? =
+    if(project.hasProperty(name)) project.property(name) as String? else System.getenv(envName)
+
 repositories {
     mavenCentral()
 }
@@ -63,5 +67,62 @@ protobuf {
                 id("grpc")
             }
         }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            name = "OSSRHostingRepository"
+
+            credentials {
+                username = getAuthenticationProperty("ossrhUsername", "OSSRH_USER")
+                password = getAuthenticationProperty("ossrhPassword", "OSSRH_PASSWORD")
+            }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("mavenJava") {
+            version = rootProject.version.toString()
+
+            pom {
+                url.set("https://github.com/Lxnus/alphos-api")
+
+                developers {
+                    developer {
+                        id.set("Linus Schmidt")
+                        email.set("contact@alphos.dev")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/Lxnus/alphos-api.git")
+                    developerConnection.set("scm:git:ssh://github.com/Lxnus/alphos-api.git")
+                    url.set("https://github.com/Lxnus/alphos-api")
+                }
+            }
+
+            from(components["java"])
+        }
+    }
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+if(rootProject.hasProperty("enableSigning")) {
+    signing {
+        val signingKey = getSigningProperty("KEY")
+        val signingPassword = getSigningProperty("PASSWORD")
+
+        println(signingKey)
+        println(signingPassword)
+
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign(publishing.publications["mavenJava"])
     }
 }
