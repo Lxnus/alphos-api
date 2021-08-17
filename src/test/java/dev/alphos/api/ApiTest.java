@@ -52,7 +52,7 @@ public class ApiTest {
     knowledgeGraphService.create(graphId);
     knowledgeGraphService.adapt(sentences, graphId);
     String predict = knowledgeGraphService.predict("Linus", graphId);
-    List<String> history = knowledgeGraphService.history("alphos-project", graphId);
+    List<String> history = knowledgeGraphService.history("alphos-project", 4, graphId);
     knowledgeGraphService.delete(graphId);
     System.out.println("KnowledgeGraph-Prediction: Linus -> " + predict);
     System.out.println("KnowledgeGraph-History: " + history);

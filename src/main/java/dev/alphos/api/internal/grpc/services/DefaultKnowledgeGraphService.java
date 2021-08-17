@@ -101,10 +101,11 @@ public class DefaultKnowledgeGraphService implements KnowledgeGraphService {
   }
 
   @Override
-  public List<String> history(String word, long graphId) {
+  public List<String> history(String word, int depth, long graphId) {
     HistoryRequest request = HistoryRequest.newBuilder()
             .setGraphId(graphId)
             .setToken(word)
+            .setDepth(depth)
             .build();
     HistoryResponse response;
     try {

@@ -16,5 +16,5 @@ public interface KnowledgeGraphService {
 
   String predict(String word, long graphId);
 
-  List<String> history(String word, long graphId);
+  List<String> history(String word, int depth, long graphId);
 }
