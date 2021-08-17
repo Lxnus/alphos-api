@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package net.alphos.api.grpc.services.nlp;
+
+message FrequencyMapRequest {
+  repeated string tokens = 1;
+}
+
+message FrequencyMapResponse {
+  map<string, uint32> frequencyMap = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+service NlpUtilService {
+  rpc generate(FrequencyMapRequest) returns (FrequencyMapResponse);
+}

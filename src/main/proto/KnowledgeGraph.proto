@@ -1,0 +1,70 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package net.alphos.api.grpc.services.experiment;
+
+message SetupKnowledgeGraphRequest {
+  uint64 graphId = 1;
+}
+
+message AdaptKnowledgeRequest {
+  uint64 graphId = 1;
+  repeated string sentences = 2;
+}
+
+message PredictNextWordRequest {
+  uint64 graphId = 1;
+  string token = 2;
+}
+
+message HistoryRequest {
+  uint64 graphId = 1;
+  uint32 depth = 2;
+  string token = 3;
+}
+
+message DeleteKnowledgeGraphRequest {
+  uint64 graphId = 1;
+}
+
+message SetupKnowledgeGraphResponse {
+  uint64 graphId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message AdaptKnowledgeResponse {
+  uint64 graphId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message PredictNextWordResponse {
+  uint64 graphId = 1;
+  string token = 2;
+  string prediction = 3;
+  string message = 4;
+  bool success = 5;
+}
+
+message HistoryResponse {
+  uint64 graphId = 1;
+  uint32 depth = 2;
+  string token = 3;
+  repeated string history = 4;
+  string message = 5;
+  bool success = 6;
+}
+
+message DeleteKnowledgeGraphResponse {
+  uint64 graphId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+service KnowledgeGraphService {
+  rpc setupKnowledgeGraph(SetupKnowledgeGraphRequest) returns (SetupKnowledgeGraphResponse);
+  rpc deleteKnowledgeGraph(DeleteKnowledgeGraphRequest) returns (DeleteKnowledgeGraphResponse);
+  rpc adaptKnowledge(AdaptKnowledgeRequest) returns (AdaptKnowledgeResponse);
+  rpc predictNextWord(PredictNextWordRequest) returns (PredictNextWordResponse);
+  rpc history(HistoryRequest) returns (HistoryResponse);
+}

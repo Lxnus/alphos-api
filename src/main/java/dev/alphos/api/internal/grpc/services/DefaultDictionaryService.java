@@ -2,7 +2,7 @@ package dev.alphos.api.internal.grpc.services;
 
 import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.DictionaryService;
-import net.alphos.service.grpc.*;
+import net.alphos.api.grpc.services.nlp.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

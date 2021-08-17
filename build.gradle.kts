@@ -1,6 +1,8 @@
 import com.google.protobuf.gradle.*;
 
 plugins {
+    id("maven-publish")
+    id("signing")
     id("java-library")
     id("com.google.protobuf") version("0.8.17")
 }
@@ -22,7 +24,7 @@ sourceSets {
     }
 }
 
-group = "dev.alphos.api"
+group = "dev.alphos"
 version = "1.2"
 
 repositories {

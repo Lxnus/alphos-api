@@ -1,0 +1,61 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package net.alphos.api.grpc.services.nlp;
+
+message SetupDictionaryRequest {
+  uint64 dictionaryId = 1;
+}
+
+message DeleteDictionaryRequest {
+  uint64 dictionaryId = 1;
+}
+
+message AddDictionaryEntryRequest {
+  uint64 dictionaryId = 1;
+  string token = 2;
+  uint32 value = 3;
+}
+
+message GetDictionaryValueRequest {
+  uint64 dictionaryId = 1;
+  string token = 2;
+}
+
+message GetDictionaryTokenRequest {
+  uint64 dictionaryId = 1;
+  uint32 value = 2;
+}
+
+message SetupDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message DeleteDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message AddDictionaryEntryResponse {
+  uint64 dictionaryId = 1;
+  string message = 2;
+  bool success = 3;
+}
+
+message GetDictionaryResponse {
+  uint64 dictionaryId = 1;
+  string token = 2;
+  uint32 value = 3;
+  string message = 4;
+  bool success = 5;
+}
+
+service DictionaryService {
+  rpc setupDictionary(SetupDictionaryRequest) returns (SetupDictionaryResponse);
+  rpc deleteDictionary(DeleteDictionaryRequest) returns (DeleteDictionaryResponse);
+  rpc addDictionaryEntry(AddDictionaryEntryRequest) returns (AddDictionaryEntryResponse);
+  rpc getDictionaryValue(GetDictionaryValueRequest) returns (GetDictionaryResponse);
+  rpc getDictionaryToken(GetDictionaryTokenRequest) returns (GetDictionaryResponse);
+}
