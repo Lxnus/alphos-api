@@ -101,6 +101,26 @@ public class DefaultKnowledgeGraphService implements KnowledgeGraphService {
   }
 
   @Override
+  public String predict(List<String> history, long graphId) {
+    PredictNextWordHRequest request = PredictNextWordHRequest.newBuilder()
+            .setGraphId(graphId)
+            .addAllTokens(history)
+            .build();
+    PredictNextWordHResponse response;
+    try {
+      response = blockingStub.predictNextHWord(request);
+    } catch (Exception exception) {
+      logger.log(Level.SEVERE, "Request failed: " + exception.getMessage());
+      return null;
+    }
+    if(!response.getSuccess()) {
+      logger.log(Level.SEVERE, response.getMessage());
+      return null;
+    }
+    return response.getPrediction();
+  }
+
+  @Override
   public List<String> history(String word, int depth, long graphId) {
     HistoryRequest request = HistoryRequest.newBuilder()
             .setGraphId(graphId)

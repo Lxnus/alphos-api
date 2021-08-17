@@ -16,6 +16,11 @@ message PredictNextWordRequest {
   string token = 2;
 }
 
+message PredictNextWordHRequest {
+  uint64 graphId = 1;
+  repeated string tokens = 2;
+}
+
 message HistoryRequest {
   uint64 graphId = 1;
   uint32 depth = 2;
@@ -46,6 +51,13 @@ message PredictNextWordResponse {
   bool success = 5;
 }
 
+message PredictNextWordHResponse {
+  uint64 graphId = 1;
+  string prediction = 3;
+  string message = 4;
+  bool success = 5;
+}
+
 message HistoryResponse {
   uint64 graphId = 1;
   uint32 depth = 2;
@@ -66,5 +78,6 @@ service KnowledgeGraphService {
   rpc deleteKnowledgeGraph(DeleteKnowledgeGraphRequest) returns (DeleteKnowledgeGraphResponse);
   rpc adaptKnowledge(AdaptKnowledgeRequest) returns (AdaptKnowledgeResponse);
   rpc predictNextWord(PredictNextWordRequest) returns (PredictNextWordResponse);
+  rpc predictNextHWord(PredictNextWordHRequest) returns (PredictNextWordHResponse);
   rpc history(HistoryRequest) returns (HistoryResponse);
 }
