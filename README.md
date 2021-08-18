@@ -11,11 +11,32 @@ We are currently working on advanced A.I. techniques and intregrate all existing
 If you are interested in cooperating with us or want to use stable versions of our service then contact us: **_contact@alphos.dev_**
 We also would love to chat with you on our [Discord Server](https://discord.gg/YfWmtNcgCY).
 
+## Verification
+
+To use our api, you need to request a valid certificate. This is required to get access to our api.\
+You can easily request a certificate by writing us an message via:\
+**E-Mail:** _contact@alphos.dev_\
+**Discord:** Lxnus#2222
+
+This certificate must be saved in `src/main/java/resources` or generally it must be placed in your resource folder.
+After it, you can load a `SslContext` with this method:
+```java
+public SslContext loadSSLCredentials() throws SSLException {
+    ClassLoader classLoader = getClass().getClassLoader();
+    File serverCACertFile = new File(classLoader.getResource("ca-cert.pem").getFile());
+    return GrpcSslContexts.forClient()
+            .trustManager(serverCACertFile)
+            .build();
+}
+```
+Otherwise, you need to specify another file location of the certificate.
+
 ### Table of Contents
 1. [Motivation](#motivation)
 2. [Examples](#examples)
 3. [Architecture](#architecture)
-4. [Coming Soon](#coming-soon)
+4. [Experiment](#experiment)
+5. [Coming Soon](#coming-soon)
 
 ## Motivation
 Today there are many frameworks that are able to present very well performing A.I. algorithms like
@@ -28,7 +49,7 @@ Alphos is able to handle and manage your service by its own. You do not need to 
 Alphos does this all for you with its new optimized algorithms.
 
 ## Examples
-For the services we use the `@Inject` annotation for injecting our service.
+For the services we use Factories to generate our instances of our Service.
 To get a deeper understanding of this [architecture](#architecture) have a look at [chapter 3](#architecture).
 ```java
 public class ApiTest {
@@ -79,12 +100,45 @@ public class ApiTest {
 ```
 
 ## Architecture
-For advanced security we use SSL/TLS encryption to guarantee high security 
-standards for our clients.
+We use Interface to generate our service instances. We can generate a service with its Factory class.
+```java
+GrpcClient client = GrpcClient.Factory.create();
+client.start(...);
 
-To access tools of the API you won't call static method but instead use constructor injection to retrieve
-the instance you need. An instance of the class will be constructed automatically using Guice.
-For further explanation, see the [Guice documentation](https://github.com/google/guice/wiki).
+KnowledgeGraphService service = KnowledgeGraphService.Factory.create(client);
+service.create(...);
+...
+```
+
+## Experiment
+With our newest implementation wie would love you to introduce the **NGKG** _(N-Gram-Knowledge-Graph)_ Algorithm.
+You are now able to create an adaptive learning knowledge-graph via the n-gram prediction and preprocess technique. 
+Example: 
+```java
+public void knowledgeGraph() {
+    long graphId = 3;
+    String sentence1 = "Hello, my name is Linus!";
+    String sentence2 = "Linus likes computers!";
+    String sentence3 = "He is working as research scientist.";
+    String sentence4 = "Linus computer saves the alphos-project";
+    String sentence5 = "Linus research project is alphos";
+    List<String> sentences = Arrays.asList(sentence1, sentence2, sentence3, sentence4, sentence5);
+    
+    KnowledgeGraphService knowledgeGraphService = KnowledgeGraphService.Factory.create(client);
+    knowledgeGraphService.create(graphId);
+    knowledgeGraphService.adapt(sentences, graphId);
+    String predict = knowledgeGraphService.predict("Linus", graphId);
+    List<String> history = knowledgeGraphService.history("alphos-project", 4, graphId);
+    knowledgeGraphService.delete(graphId);
+    
+    System.out.println("KnowledgeGraph-Prediction: Linus -> " + predict);
+    System.out.println("KnowledgeGraph-History: " + history);
+}
+```
+This graph can adapt an learn more information by itself. The graph has an very low time-complexity and is able 
+to generate very advanced knowledge. It will learn with every interaction an can perform advanced prediction task.
+With every interaction it will learn more about language. In future it will be able to build knowledge with multiple
+classes such Text/Actions/...
 
 ## Coming soon
 Until now, the main focus was on the main-alphos-system. Currently, we are 

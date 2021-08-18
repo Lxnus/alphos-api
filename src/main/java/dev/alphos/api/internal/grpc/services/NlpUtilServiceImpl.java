@@ -6,22 +6,18 @@ import net.alphos.service.grpc.services.nlp.FrequencyMapRequest;
 import net.alphos.service.grpc.services.nlp.FrequencyMapResponse;
 import net.alphos.service.grpc.services.nlp.NlpUtilServiceGrpc;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Singleton
-public class DefaultNlpUtilService implements NlpUtilService {
+public class NlpUtilServiceImpl implements NlpUtilService {
 
-  private static final Logger logger = Logger.getLogger(DefaultNlpUtilService.class.getName());
+  private static final Logger logger = Logger.getLogger(NlpUtilServiceImpl.class.getName());
 
   private final NlpUtilServiceGrpc.NlpUtilServiceBlockingStub blockingStub;
 
-  @Inject
-  public DefaultNlpUtilService(GrpcClient client) {
+  public NlpUtilServiceImpl(GrpcClient client) {
     this.blockingStub = NlpUtilServiceGrpc.newBlockingStub(client.channel());
   }
 

@@ -1,15 +1,20 @@
 package dev.alphos.api.main.grpc.client;
 
-import com.google.inject.ImplementedBy;
-import dev.alphos.api.internal.grpc.client.DefaultGrpcClient;
+import dev.alphos.api.internal.grpc.client.GrpcClientImpl;
 import io.grpc.ManagedChannel;
+import io.netty.handler.ssl.SslContext;
 
-@ImplementedBy(DefaultGrpcClient.class)
 public interface GrpcClient {
 
-  void start(String host, int port);
+  void start(SslContext sslContext);
 
   ManagedChannel channel();
 
   void stop();
+
+  class Factory {
+    public static GrpcClient create() {
+      return new GrpcClientImpl();
+    }
+  }
 }

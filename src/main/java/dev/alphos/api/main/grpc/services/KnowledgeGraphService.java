@@ -1,11 +1,10 @@
 package dev.alphos.api.main.grpc.services;
 
-import com.google.inject.ImplementedBy;
-import dev.alphos.api.internal.grpc.services.DefaultKnowledgeGraphService;
+import dev.alphos.api.internal.grpc.services.KnowledgeGraphServiceImpl;
+import dev.alphos.api.main.grpc.client.GrpcClient;
 
 import java.util.List;
 
-@ImplementedBy(DefaultKnowledgeGraphService.class)
 public interface KnowledgeGraphService {
 
   void create(long graphId);
@@ -19,4 +18,10 @@ public interface KnowledgeGraphService {
   String predict(List<String> history, long graphId);
 
   List<String> history(String word, int depth, long graphId);
+
+  class Factory {
+    public static KnowledgeGraphService create(GrpcClient client) {
+      return new KnowledgeGraphServiceImpl(client);
+    }
+  }
 }

@@ -4,20 +4,16 @@ import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.DictionaryService;
 import net.alphos.service.grpc.services.nlp.*;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Singleton
-public class DefaultDictionaryService implements DictionaryService {
+public class DictionaryServiceImpl implements DictionaryService {
 
-  private final static Logger logger = Logger.getLogger(DefaultDictionaryService.class.getName());
+  private final static Logger logger = Logger.getLogger(DictionaryServiceImpl.class.getName());
 
   private final DictionaryServiceGrpc.DictionaryServiceBlockingStub blockingStub;
 
-  @Inject
-  public DefaultDictionaryService(GrpcClient client) {
+  public DictionaryServiceImpl(GrpcClient client) {
     this.blockingStub = DictionaryServiceGrpc.newBlockingStub(client.channel());
   }
 

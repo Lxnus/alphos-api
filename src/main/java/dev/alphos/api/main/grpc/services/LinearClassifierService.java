@@ -1,11 +1,10 @@
 package dev.alphos.api.main.grpc.services;
 
-import com.google.inject.ImplementedBy;
-import dev.alphos.api.internal.grpc.services.DefaultLinearClassifierService;
+import dev.alphos.api.internal.grpc.services.LinearClassifierServiceImpl;
+import dev.alphos.api.main.grpc.client.GrpcClient;
 
 import java.util.List;
 
-@ImplementedBy(DefaultLinearClassifierService.class)
 public interface LinearClassifierService {
 
   /**
@@ -46,4 +45,10 @@ public interface LinearClassifierService {
    * @param classifierId identification id
    */
   void delete(long classifierId);
+
+  class Factory {
+    public static LinearClassifierService create(GrpcClient client) {
+      return new LinearClassifierServiceImpl(client);
+    }
+  }
 }

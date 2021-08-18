@@ -1,26 +1,29 @@
 package dev.alphos.api;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.DictionaryService;
 import dev.alphos.api.main.grpc.services.KnowledgeGraphService;
 import dev.alphos.api.main.grpc.services.LinearClassifierService;
+import io.grpc.netty.GrpcSslContexts;
+import io.netty.handler.ssl.SslContext;
 
-import javax.inject.Inject;
+import javax.net.ssl.SSLException;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public class ApiTest {
 
-  @Inject
-  public ApiTest(LinearClassifierService classifier,
-                 DictionaryService dictionaryService,
-                 KnowledgeGraphService knowledgeGraphService) {
-    long classifierId = 1;
+  public ApiTest() throws SSLException {
+    GrpcClient client = GrpcClient.Factory.create();
+    SslContext sslContext = loadSSLCredentials();
+    client.start(sslContext);
 
+    long classifierId = 1;
     List<Double> x = Arrays.asList(1.5, 1.4, 1.3, 1.25, 1.19);
     List<Double> y = Arrays.asList(7.61, 7.10, 6.59, 6.34, 6.03);
 
+    LinearClassifierService classifier = LinearClassifierService.Factory.create(client);
     classifier.create(classifierId, x, y);
     double error = classifier.error(classifierId);
     double prediction = classifier.predict(1.35, classifierId);
@@ -29,6 +32,7 @@ public class ApiTest {
     System.out.printf("Classifier: error=%s, prediction=%s \n", error, prediction);
 
     long dictionaryId = 2;
+    DictionaryService dictionaryService = DictionaryService.Factory.create(client);
     dictionaryService.create(dictionaryId);
     dictionaryService.addEntry("Lxnus", 1, dictionaryId);
     String token = dictionaryService.getToken(1, dictionaryId);
@@ -49,6 +53,7 @@ public class ApiTest {
             sentence3,
             sentence4,
             sentence5);
+    KnowledgeGraphService knowledgeGraphService = KnowledgeGraphService.Factory.create(client);
     knowledgeGraphService.create(graphId);
     knowledgeGraphService.adapt(sentences, graphId);
     String predict = knowledgeGraphService.predict("Linus", graphId);
@@ -58,8 +63,15 @@ public class ApiTest {
     System.out.println("KnowledgeGraph-History: " + history);
   }
 
-  public static void main(String[] args) {
-    Injector injector = Guice.createInjector();
-    injector.getInstance(ApiTest.class);
+  private SslContext loadSSLCredentials() throws SSLException {
+    ClassLoader classLoader = getClass().getClassLoader();
+    File serverCACertFile = new File(classLoader.getResource("ca-cert.pem").getFile());
+    return GrpcSslContexts.forClient()
+            .trustManager(serverCACertFile)
+            .build();
+  }
+
+  public static void main(String[] args) throws SSLException {
+    new ApiTest();
   }
 }

@@ -1,9 +1,8 @@
 package dev.alphos.api.main.grpc.services;
 
-import com.google.inject.ImplementedBy;
-import dev.alphos.api.internal.grpc.services.DefaultDictionaryService;
+import dev.alphos.api.internal.grpc.services.DictionaryServiceImpl;
+import dev.alphos.api.main.grpc.client.GrpcClient;
 
-@ImplementedBy(DefaultDictionaryService.class)
 public interface DictionaryService {
 
   void create(long dictionaryId);
@@ -15,4 +14,10 @@ public interface DictionaryService {
   Integer getValue(String token, long dictionaryId);
 
   String getToken(int value, long dictionary);
+
+  class Factory {
+    public static DictionaryService create(GrpcClient client) {
+      return new DictionaryServiceImpl(client);
+    }
+  }
 }

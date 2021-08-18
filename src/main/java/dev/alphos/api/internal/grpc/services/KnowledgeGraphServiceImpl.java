@@ -4,21 +4,17 @@ import dev.alphos.api.main.grpc.client.GrpcClient;
 import dev.alphos.api.main.grpc.services.KnowledgeGraphService;
 import net.alphos.service.grpc.services.experiment.*;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Singleton
-public class DefaultKnowledgeGraphService implements KnowledgeGraphService {
+public class KnowledgeGraphServiceImpl implements KnowledgeGraphService {
 
-  private static final Logger logger = Logger.getLogger(DefaultKnowledgeGraphService.class.getName());
+  private static final Logger logger = Logger.getLogger(KnowledgeGraphServiceImpl.class.getName());
 
   private final KnowledgeGraphServiceGrpc.KnowledgeGraphServiceBlockingStub blockingStub;
 
-  @Inject
-  public DefaultKnowledgeGraphService(GrpcClient client) {
+  public KnowledgeGraphServiceImpl(GrpcClient client) {
     this.blockingStub = KnowledgeGraphServiceGrpc.newBlockingStub(client.channel());
   }
 

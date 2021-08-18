@@ -16,14 +16,6 @@ buildscript {
     }
 }
 
-sourceSets {
-    create("grpc") {
-        proto {
-            srcDir("src/grpc/protobuf")
-        }
-    }
-}
-
 group = "dev.alphos"
 version = "1.2"
 
@@ -40,8 +32,6 @@ configure<JavaPluginConvention> {
 }
 
 dependencies {
-    implementation("com.google.inject", "guice", "4.2.1")
-    implementation("com.google.inject.extensions", "guice-assistedinject", "4.2.1")
     implementation("com.google.protobuf", "protobuf-java", "4.0.0-rc-2")
 
     implementation("io.grpc", "grpc-all", "1.26.0")
@@ -118,9 +108,6 @@ if(rootProject.hasProperty("enableSigning")) {
     signing {
         val signingKey = getSigningProperty("KEY")
         val signingPassword = getSigningProperty("PASSWORD")
-
-        println(signingKey)
-        println(signingPassword)
 
         useInMemoryPgpKeys(signingKey, signingPassword)
         sign(publishing.publications["mavenJava"])

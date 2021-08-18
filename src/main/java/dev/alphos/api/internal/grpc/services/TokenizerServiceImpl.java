@@ -6,21 +6,17 @@ import net.alphos.service.grpc.services.nlp.TokenizeRequest;
 import net.alphos.service.grpc.services.nlp.TokenizeResponse;
 import net.alphos.service.grpc.services.nlp.TokenizerServiceGrpc;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@Singleton
-public class DefaultTokenizerService implements TokenizerService {
+public class TokenizerServiceImpl implements TokenizerService {
 
-  private static final Logger logger = Logger.getLogger(DefaultTokenizerService.class.getName());
+  private static final Logger logger = Logger.getLogger(TokenizerServiceImpl.class.getName());
 
   private final TokenizerServiceGrpc.TokenizerServiceBlockingStub blockingStub;
 
-  @Inject
-  public DefaultTokenizerService(GrpcClient client) {
+  public TokenizerServiceImpl(GrpcClient client) {
     this.blockingStub = TokenizerServiceGrpc.newBlockingStub(client.channel());
   }
 
