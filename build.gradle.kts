@@ -17,7 +17,7 @@ buildscript {
 }
 
 group = "dev.alphos"
-version = "1.2"
+version = "1.2.2"
 
 fun getSigningProperty(name: String): String? = System.getenv("SIGNING_$name")
 fun getAuthenticationProperty(name: String, envName: String): String? =
