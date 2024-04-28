@@ -15,7 +15,7 @@ We also would love to chat with you on our [Discord Server](https://discord.gg/Y
 
 To use our api, you need to request a valid certificate. This is required to get access to our api.\
 You can easily request a certificate by writing us an message via:\
-**E-Mail:** _contact@alphos.dev_\
+**E-Mail:** _contact@alphos-services.com_\
 **Discord:** Lxnus#2222
 
 This certificate must be saved in `src/main/java/resources` or generally it must be placed in your resource folder.

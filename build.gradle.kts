@@ -83,7 +83,7 @@ publishing {
                 developers {
                     developer {
                         id.set("Linus Schmidt")
-                        email.set("contact@alphos.dev")
+                        email.set("contact@alphos-services.com")
                     }
                 }
 
